@@ -27,6 +27,7 @@ public:
     int disableInterrupt(bool immediate = true);
 
     int reset(bool immediate = true);
+    bool is_busy();
 
     int enableContiniousConversion();
     int disableContiniousConversion();

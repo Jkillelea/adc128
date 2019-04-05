@@ -10,10 +10,11 @@ void ADC128::begin() {
     i2c_bus_init();
 
     // reset defaults
+    enableStart(true);
     reset(true);
 
 #ifdef __linux__
-    while(reg_read(reg::busy) > 0) {
+    while(is_busy()) {
        usleep(100000); 
     }
 #endif // __linux__
@@ -112,6 +113,10 @@ int ADC128::disableExternalVref(bool immediate) {
         return reg_write(reg::adv_config, adv_config_data);
     else
         return 0;
+}
+
+bool ADC128::is_busy() {
+    return (reg_read(reg::busy) > 0);
 }
 
 uint16_t ADC128::analogRead(uint8_t chan) {
