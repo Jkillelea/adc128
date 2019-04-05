@@ -15,19 +15,19 @@ void ADC128::begin() {
     // shutdown
     disableStart(true);
 
+    // mode 1
+    setMode1();
+
     // conversion rate -> continious
     enableContiniousConversion();
 
-    // reg_write(reg::config, 0b00000001);
+    // startup
+    enableStart(true);
 
     // external vref
     enableExternalVref();
 
-    // mode 1
-    setMode1();
 
-    // startup
-    enableStart(true);
 }
 
 
