@@ -8,10 +8,17 @@ ADC128::ADC128(uint8_t address) {
 void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
+
+#ifdef __linux__
+    while(reg_read(reg::busy) > 0) {
+       sleep(1); 
+    }
+#endif // __linux__
+
     // reset defaults
-    // reset();
+    reset();
     // shutdown
-    // disableStart(true);
+    disableStart(true);
     // mode 1
     setMode1();
     // conversion rate -> continious
@@ -121,9 +128,10 @@ uint16_t ADC128::analogRead(uint8_t chan) {
 
     return (highbyte << 4) | (lowbyte >> 4);
 #else // Raspberry Pi
-    uint8_t buf[2] = {0};
-    i2c->write(&channel_reg, 1);
+    uint8_t buf[2] = {channel_reg, 0};
+    i2c->write(buf, 1);
     i2c->read(buf, 2);
+    // return (buf[0] << 4) | (buf[1] >> 4); // TODO
     return (buf[0] << 4) | (buf[1] >> 4);
 }
 #endif
@@ -145,6 +153,23 @@ inline int ADC128::reg_write(uint8_t reg, uint8_t data) {
 #else
     uint8_t buf[] = {reg, data};
     i2c->write(buf, 2);
+#endif
+}
+
+inline uint8_t ADC128::reg_read(uint8_t reg) {
+#ifdef ARDUINO
+    Wire.beginTransmission(addr);
+    Wire.write(reg);
+    Wire.endTransmission();
+
+    Wire.requestFrom(addr, 1);
+    while (!Wire.available());
+    return Wire.read();
+#else
+    uint8_t buf[] = {reg};
+    i2c->write(buf, 1);
+    i2c->read(buf, 1);
+    return buf[0];
 #endif
 }
 
