@@ -125,7 +125,7 @@ int ADC128::disableExternalVref(bool immediate) {
 }
 
 bool ADC128::is_busy() {
-    return (reg_read(reg::busy) > 0);
+    return (reg_read(reg::busy) & busy::not_ready) > 0;
 }
 
 uint16_t ADC128::analogRead(uint8_t chan) {
