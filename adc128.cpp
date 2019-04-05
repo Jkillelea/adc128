@@ -23,7 +23,8 @@ void ADC128::begin() {
     // startup
     enableStart(true);
     // turn off all interrupts
-    disableInterrupt();
+    // disableInterrupt();
+    enableInterrupt();
     clearInterrupts();
 
     while(is_busy()) {
@@ -57,6 +58,7 @@ int ADC128::enableStart(bool immediate) {
         return 0;
 }
 
+
 int ADC128::disableStart(bool immediate) {
     config_data &= ~config::start;
     if (immediate)
@@ -83,8 +85,9 @@ int ADC128::disableInterrupt(bool immediate) {
         return 0;
 }
 
+
 int ADC128::clearInterrupts(bool immediate) {
-    config_data &= ~config::int_clear;
+    config_data |= config::int_clear;
     if (immediate)
         return writeConfig();
     else
