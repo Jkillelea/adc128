@@ -8,8 +8,11 @@ int main(int argc, char *argv[]) {
     adc.begin();
 
     while (true) {
-        uint16_t val = adc.analogRead(0);
-        printf("%x\n", val);
+        for (int chan = 0; chan < 8; chan++) {
+            uint16_t val = adc.analogRead(0);
+            printf("%x ", val);
+        }
+        printf("\n");
         delay(500);
     }
 }
