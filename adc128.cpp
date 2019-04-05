@@ -29,6 +29,8 @@ void ADC128::begin() {
     reg_write(reg::int_mask, 0xFF);
     // startup
     enableStart(true);
+    // mode 1
+    setMode1();
     // turn off all interrupts
     disableInterrupts();
     enableInterruptPin();
