@@ -26,12 +26,13 @@ void ADC128::begin() {
     disableInterrupt();
     clearInterrupts();
 
-#ifdef __linux__
     while(is_busy()) {
-       usleep(100000); 
+#ifdef ARDUINO
+       delay(10);
+#else
+       usleep(100000);  // 10 ms
+#endif
     }
-#endif // __linux__
-
 
     // shutdown
     // disableStart(true);
