@@ -19,7 +19,7 @@ void ADC128::begin() {
     enableStart(true);
     // turn off all interrupts
     enableInterrupts();
-    enableInterruptPin();
+    clearInterruptPin();
     // mode 1
     setMode1();
 
