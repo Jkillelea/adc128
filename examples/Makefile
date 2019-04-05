@@ -1,7 +1,7 @@
 CXX      = g++
-CFLAGS   = -I../..
+CFLAGS   = -I..
 LFLAGS   = -lwiringPi
-LIB_OBJS = ../../adc128.o ../../i2cdevice.o
+LIB_OBJS = ../adc128.o ../i2cdevice.o
 
 TARGETS = pi_example
 
@@ -15,10 +15,10 @@ pi_example: pi_example.o $(LIB_OBJS)
 	$(CXX) $(CFLAGS) -c $^ -o $@
 
 $(LIB_OBJS):
-	make -C ../..
+	make -C ..
 
 clean:
 	rm -f *.o
 	rm -f $(TARGETS)
-	make -C ../.. clean
+	make -C .. clean
 
