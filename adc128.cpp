@@ -9,27 +9,19 @@ ADC128::ADC128(uint8_t address) {
 
 void ADC128::begin() {
     // reset defaults
-    puts("reset");
     reset(true);
     // external vref
-    puts("vref");
     enableExternalVref();
-    // mode 1
-    puts("mode1");
-    setMode1();
     // conversion rate -> continious
-    puts("cont conversion");
     enableContiniousConversion();
     // mask all interrupts
-    puts("mask int");
     reg_write(reg::int_mask, 0xFF);
     // startup
-    puts("start");
     enableStart(true);
+    // mode 1
+    setMode1();
     // turn off all interrupts
-    puts("disabl int");
     disableInterrupts();
-    puts("enabl int pin");
     enableInterruptPin();
 
     while(is_busy()) {
