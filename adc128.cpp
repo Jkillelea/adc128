@@ -13,11 +13,11 @@ void ADC128::begin() {
     enableStart(true);
     reset(true);
 
-#ifdef __linux__
-    while(is_busy()) {
-       usleep(100000); 
-    }
-#endif // __linux__
+// #ifdef __linux__
+//     while(is_busy()) {
+//        usleep(100000); 
+//     }
+// #endif // __linux__
 
     // shutdown
     disableStart(true);
@@ -137,7 +137,6 @@ uint16_t ADC128::analogRead(uint8_t chan) {
 #else // Raspberry Pi
     uint8_t buf[2] = {channel_reg, 0};
     i2c->write(buf, 1);
-    usleep(100);
     i2c->read(buf, 2);
     // return (buf[0] << 4) | (buf[1] >> 4); // TODO
     return (buf[0] << 4) | (buf[1] >> 4);
@@ -176,7 +175,6 @@ inline uint8_t ADC128::reg_read(uint8_t reg) {
 #else
     uint8_t buf[] = {reg};
     i2c->write(buf, 1);
-    usleep(100);
     i2c->read(buf, 1);
     return buf[0];
 #endif

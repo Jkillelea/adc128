@@ -8,6 +8,10 @@ int main(int argc, char *argv[]) {
     ADC128 adc(0x1D);
     adc.begin();
 
+    while (adc.is_busy()) {
+        usleep(100000);
+    }
+
     while (true) {
         for (int chan = 0; chan < 8; chan++) {
             uint16_t val = adc.analogRead(chan);
