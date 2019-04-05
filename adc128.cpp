@@ -171,7 +171,7 @@ uint16_t ADC128::analogRead(uint8_t chan) {
 #else // Raspberry Pi
     uint8_t buf[2] = {0};
     i2c->write(&channel_reg, 1);
-    usleep(1000);
+    // usleep(1000);
     i2c->read(buf, 2);
     // return (buf[0] << 4) | ((buf[1] >> 4) & 0xF0); // TODO
     return (buf[1] << 8) | (buf[0]);
