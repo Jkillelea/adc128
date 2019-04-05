@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <uinstd.h>
+#include <unistd.h>
 #include <wiringPi.h>
 #include "adc128.h"
 
