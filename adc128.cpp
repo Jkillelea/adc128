@@ -9,7 +9,7 @@ ADC128::ADC128(uint8_t address) {
 
 void ADC128::begin() {
     // reset defaults
-    reset(true);
+    // reset(true);
     // external vref
     enableExternalVref();
     // conversion rate -> continious
@@ -24,13 +24,13 @@ void ADC128::begin() {
     disableInterrupts();
     enableInterruptPin();
 
-    while(is_busy()) {
-#ifdef ARDUINO
-       delay(10);
-#else
-       usleep(100000);  // 10 ms
-#endif
-    }
+//     while(is_busy()) {
+// #ifdef ARDUINO
+//        delay(10);
+// #else
+//        usleep(100000);  // 10 ms
+// #endif
+//     }
 }
 
 
