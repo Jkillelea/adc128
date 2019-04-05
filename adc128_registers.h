@@ -1,3 +1,5 @@
+#pragma once
+
 // register addresses
 namespace reg {
     // chip configuration registers
@@ -79,8 +81,8 @@ namespace deep_shutdown {
 
 namespace adv_config {
     const uint8_t external_vref = 1 << 0;
-    const uint8_t mode_sel0     = 1 << 1;
-    const uint8_t mode_sel1     = 1 << 2;
+    const uint8_t mode_bit0     = 1 << 1;
+    const uint8_t mode_bit1     = 1 << 2;
 } // end namespace adv_config
 
 
