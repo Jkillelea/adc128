@@ -20,11 +20,11 @@ void ADC128::begin() {
     setMode1();
     // conversion rate -> continious
     enableContiniousConversion();
+    // startup
+    enableStart(true);
     // turn off all interrupts
     enableInterrupts();
     enableInterruptPin();
-    // startup
-    enableStart(true);
 
     while(is_busy()) {
 #ifdef ARDUINO
