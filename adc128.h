@@ -25,6 +25,7 @@ public:
 
     int enableInterrupt(bool immediate = true);
     int disableInterrupt(bool immediate = true);
+    int clearInterrupts(bool immediate = true);
 
     int reset(bool immediate = true);
     bool is_busy();

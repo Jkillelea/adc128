@@ -79,6 +79,14 @@ int ADC128::disableInterrupt(bool immediate) {
         return 0;
 }
 
+int ADC128::clearInterrupts(bool immediate) {
+    config_data &= ~config::int_clear;
+    if (immediate)
+        return writeConfig();
+    else
+        return 0;
+}
+
 
 int ADC128::reset(bool immediate) {
     config_data |= config::restore_defaults;
@@ -114,7 +122,7 @@ int ADC128::setMode1(bool immediate) {
 int ADC128::enableExternalVref(bool immediate) {
     adv_config_data |= adv_config::external_vref;
     if (immediate)
-        return reg_write(reg::adv_config, adv_config_data);
+        return writeAdvConfig();
     else
         return 0;
 }
@@ -122,7 +130,7 @@ int ADC128::enableExternalVref(bool immediate) {
 int ADC128::disableExternalVref(bool immediate) {
     adv_config_data &= ~adv_config::external_vref;
     if (immediate)
-        return reg_write(reg::adv_config, adv_config_data);
+        return writeAdvConfig();
     else
         return 0;
 }
