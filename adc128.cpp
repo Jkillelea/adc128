@@ -9,16 +9,10 @@ void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
 
-    // shutdown
-    // disableStart(true);
-    // reg_write(reg::deep_shutdown, 0);
-
     // reset defaults
     reset(true);
     // external vref
     enableExternalVref();
-    // mode 1
-    setMode1();
     // conversion rate -> continious
     enableContiniousConversion();
     // startup
@@ -26,6 +20,8 @@ void ADC128::begin() {
     // turn off all interrupts
     enableInterrupts();
     enableInterruptPin();
+    // mode 1
+    setMode1();
 
     while(is_busy()) {
 #ifdef ARDUINO
