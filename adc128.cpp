@@ -9,12 +9,6 @@ void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
 
-#ifdef __linux__
-    while(reg_read(reg::busy) > 0) {
-       sleep(1); 
-    }
-#endif // __linux__
-
     // reset defaults
     reset();
     // shutdown
@@ -27,6 +21,12 @@ void ADC128::begin() {
     enableStart(true);
     // external vref
     enableExternalVref();
+
+#ifdef __linux__
+    while(reg_read(reg::busy) > 0) {
+       sleep(1); 
+    }
+#endif // __linux__
 }
 
 
