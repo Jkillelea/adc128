@@ -20,11 +20,11 @@ void ADC128::begin() {
     setMode1();
     // conversion rate -> continious
     enableContiniousConversion();
+    // turn off all interrupts
+    enableInterrupts();
+    enableInterruptPin();
     // startup
     enableStart(true);
-    // turn off all interrupts
-    disableInterrupts();
-    enableInterruptPin();
 
     while(is_busy()) {
 #ifdef ARDUINO
@@ -158,9 +158,8 @@ uint16_t ADC128::analogRead(uint8_t chan) {
     return (highbyte << 4) | (lowbyte >> 4);
 #else // Raspberry Pi
     uint8_t buf[2] = {0};
-    uint8_t out_buf[] = {channel_reg};
-    i2c->write(out_buf, 1);
-    // usleep(1000);
+    i2c->write(&channel_reg, 1);
+    usleep(100);
     i2c->read(buf, 2);
     // return (buf[0] << 4) | ((buf[1] >> 4) & 0xF0); // TODO
     return (buf[1] << 8) | (buf[0]);
