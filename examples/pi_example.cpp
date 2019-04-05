@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <wiringPi.h>
 #include "adc128.h"
 
@@ -7,7 +8,8 @@ int main(int argc, char *argv[]) {
     adc.begin();
 
     while (true) {
-        Serial.println(adc.analogRead(0), HEX);
+        uint16_t val = adc.analogRead(0);
+        printf("%x\n", val);
         delay(500);
     }
 }
