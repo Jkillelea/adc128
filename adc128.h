@@ -1,9 +1,18 @@
-#include <Arduino.h>
-#include <Wire.h>
+#pragma once
 
 #include <stdint.h>
-
 #include "adc128_registers.h"
+
+#ifdef ARDUINO
+#include <Arduino.h>
+#include <Wire.h>
+#endif // ARDUINO
+
+#ifdef __linux__
+#include <i2cdevice.h>
+#include <memory>
+#endif // __linux__
+
 
 class ADC128 {
 public:
@@ -19,15 +28,33 @@ public:
 
     int reset(bool immediate = true);
 
-    int enableContiniousConversion(bool immediate = true);
-    int disableContiniousConversion(bool immediate = true);
+    int enableContiniousConversion();
+    int disableContiniousConversion();
+
+    int oneshot();
+
+    int enableExternalVref(bool immediate = true);
+    int disableExternalVref(bool immediate = true);
+
+    uint16_t analogRead(uint8_t chan);
 
 private:
+    uint8_t addr = 0x00;
+
+    void i2c_bus_init();
     int reg_write(uint8_t reg, uint8_t data);
     int writeConfig();
+    int writeAdvConfig();
 
-    uint8_t addr = 0x00;
+    // configuration register defaults
     uint8_t config_data =  config::start 
                          | config::int_clear 
-                         | config::restore_defaults; // configuration register defaults
-}
+                         | config::restore_defaults;
+
+    uint8_t adv_config_data = adv_config::external_vref
+                            | adv_config::mode_bit0;
+
+#ifdef __linux__
+    std::unique_ptr<I2CDevice> i2c; // Linux i2c backend
+#endif // __linux__
+};
