@@ -33,19 +33,6 @@ void ADC128::begin() {
        usleep(100000);  // 10 ms
 #endif
     }
-
-    // shutdown
-    // disableStart(true);
-    // mode 1
-    // setMode1();
-    // conversion rate -> continious
-    // enableContiniousConversion();
-    // startup
-    // enableStart(true);
-
-    // external vref
-    // enableExternalVref();
-
 }
 
 
@@ -171,7 +158,8 @@ uint16_t ADC128::analogRead(uint8_t chan) {
     return (highbyte << 4) | (lowbyte >> 4);
 #else // Raspberry Pi
     uint8_t buf[2] = {0};
-    i2c->write(&channel_reg, 1);
+    uint8_t out_buf[] = {channel_reg};
+    i2c->write(out_buf, 1);
     // usleep(1000);
     i2c->read(buf, 2);
     // return (buf[0] << 4) | ((buf[1] >> 4) & 0xF0); // TODO
