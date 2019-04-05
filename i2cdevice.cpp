@@ -24,5 +24,5 @@ ssize_t I2CDevice::write(const uint8_t *buf, size_t count) {
 }
 
 ssize_t I2CDevice::read(uint8_t *buf, size_t count) {
-    return ::read(_fd, &buf, count);
+    return ::read(_fd, buf, count);
 }
