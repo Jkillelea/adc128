@@ -11,12 +11,12 @@ void ADC128::begin() {
 
     // reset defaults
     reset(true);
-    // external vref
-    enableExternalVref();
     // conversion rate -> continious
     enableContiniousConversion();
     // startup
     enableStart(true);
+    // external vref
+    enableExternalVref();
     // turn off all interrupts
     disableInterrupts();
     clearInterruptPin();
