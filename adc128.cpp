@@ -8,8 +8,11 @@ ADC128::ADC128(uint8_t address) {
 }
 
 void ADC128::begin() {
+    config_data     = reg_read(reg::config);
+    adv_config_data = reg_read(reg::adv_config);
+
     // reset defaults
-    reset(true);
+    reset();
     // shutdown
     disableStart(true);
     // external vref
@@ -85,12 +88,8 @@ int ADC128::enableInterruptPin(bool immediate) {
 }
 
 
-int ADC128::reset(bool immediate) {
-    config_data |= config::restore_defaults;
-    if (immediate)
-        return writeConfig();
-    else
-        return 0;
+int ADC128::reset() {
+    reg_write(reg::config, config::restore_defaults);
 }
 
 

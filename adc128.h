@@ -28,7 +28,7 @@ public:
     int clearInterruptPin(bool immediate = true);
     int enableInterruptPin(bool immediate = true);
 
-    int reset(bool immediate = true);
+    int reset();
     bool is_busy();
 
     int enableContiniousConversion();
@@ -52,9 +52,9 @@ private:
     int writeAdvConfig();
 
     // configuration register defaults
+    // NOTE: these are currently read from the chip and set in begin()
     uint8_t config_data =  config::start 
-                         | config::int_clear 
-                         | config::restore_defaults;
+                         | config::int_clear;
 
     uint8_t adv_config_data = adv_config::external_vref
                             | adv_config::mode_bit0;
