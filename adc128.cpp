@@ -23,9 +23,8 @@ void ADC128::begin() {
     // startup
     enableStart(true);
     // turn off all interrupts
-    // disableInterrupt();
-    enableInterrupt();
-    clearInterrupts();
+    disableInterrupts();
+    enableInterruptPin();
 
     while(is_busy()) {
 #ifdef ARDUINO
@@ -68,7 +67,7 @@ int ADC128::disableStart(bool immediate) {
 }
 
 
-int ADC128::enableInterrupt(bool immediate) {
+int ADC128::enableInterrupts(bool immediate) {
     config_data |= config::int_enable;
     if (immediate)
         return writeConfig();
@@ -77,7 +76,7 @@ int ADC128::enableInterrupt(bool immediate) {
 }
 
 
-int ADC128::disableInterrupt(bool immediate) {
+int ADC128::disableInterrupts(bool immediate) {
     config_data &= ~config::int_enable;
     if (immediate)
         return writeConfig();
@@ -86,8 +85,16 @@ int ADC128::disableInterrupt(bool immediate) {
 }
 
 
-int ADC128::clearInterrupts(bool immediate) {
+int ADC128::clearInterruptPin(bool immediate) {
     config_data |= config::int_clear;
+    if (immediate)
+        return writeConfig();
+    else
+        return 0;
+}
+
+int ADC128::enableInterruptPin(bool immediate) {
+    config_data &= ~config::int_clear;
     if (immediate)
         return writeConfig();
     else

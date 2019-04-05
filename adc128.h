@@ -23,9 +23,10 @@ public:
     int enableStart(bool immediate = true);
     int disableStart(bool immediate = true);
 
-    int enableInterrupt(bool immediate = true);
-    int disableInterrupt(bool immediate = true);
-    int clearInterrupts(bool immediate = true);
+    int enableInterrupts(bool immediate = true);
+    int disableInterrupts(bool immediate = true);
+    int clearInterruptPin(bool immediate = true);
+    int enableInterruptPin(bool immediate = true);
 
     int reset(bool immediate = true);
     bool is_busy();
