@@ -18,12 +18,12 @@ void ADC128::begin() {
     // conversion rate -> continious
     enableContiniousConversion();
     // mask all interrupts
-    // reg_write(reg::int_mask, 0xFF);
+    reg_write(reg::int_mask, 0xFF);
     // startup
     enableStart(true);
     // turn off all interrupts
     disableInterrupts();
-    enableInterruptPin();
+    // enableInterruptPin();
 
     while(is_busy()) {
 #ifdef ARDUINO
