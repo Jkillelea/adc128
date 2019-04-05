@@ -3,12 +3,11 @@
 
 ADC128::ADC128(uint8_t address) {
     addr = address;
+    // I2C Setup
+    i2c_bus_init();
 }
 
 void ADC128::begin() {
-    // I2C Setup
-    i2c_bus_init();
-
     // reset defaults
     puts("reset");
     reset(true);
