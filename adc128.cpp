@@ -10,7 +10,14 @@ void ADC128::begin() {
     i2c_bus_init();
 
     // reset defaults
-    reset();
+    reset(true);
+
+#ifdef __linux__
+    while(reg_read(reg::busy) > 0) {
+       usleep(100000); 
+    }
+#endif // __linux__
+
     // shutdown
     disableStart(true);
     // mode 1
@@ -22,11 +29,6 @@ void ADC128::begin() {
     // external vref
     enableExternalVref();
 
-#ifdef __linux__
-    while(reg_read(reg::busy) > 0) {
-       sleep(1); 
-    }
-#endif // __linux__
 }
 
 
