@@ -154,7 +154,8 @@ bool ADC128::is_busy() {
 }
 
 uint16_t ADC128::analogRead(uint8_t chan) {
-    uint8_t channel_reg = reg::chan0 + chan;
+    // uint8_t channel_reg = reg::chan0 + chan;
+    uint8_t channel_reg = 0x20 + chan;
 
 #ifdef ARDUINO
     Wire.beginTransmission(addr);
