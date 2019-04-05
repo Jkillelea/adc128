@@ -8,29 +8,31 @@ ADC128::ADC128(uint8_t address) {
 }
 
 void ADC128::begin() {
+    while(is_busy()) {
+#ifdef ARDUINO
+       delay(10);
+#else
+       usleep(100000);  // 10 ms
+#endif
+    }
     // reset defaults
-    reset(true);
+    // reset(true);
     // external vref
-    enableExternalVref();
+    enableExternalVref(false);
+    // mode 1
+    setMode1();
     // conversion rate -> continious
     enableContiniousConversion();
+    // enable all channels
+    reg_write(reg::chan_disable, 0x00);
     // mask all interrupts
     reg_write(reg::int_mask, 0xFF);
     // startup
     enableStart(true);
-    // mode 1
-    setMode1();
     // turn off all interrupts
     disableInterrupts();
     enableInterruptPin();
 
-//     while(is_busy()) {
-// #ifdef ARDUINO
-//        delay(10);
-// #else
-//        usleep(100000);  // 10 ms
-// #endif
-//     }
 }
 
 
