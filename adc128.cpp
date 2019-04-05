@@ -24,7 +24,7 @@ void ADC128::begin() {
     // conversion rate -> continious
     enableContiniousConversion();
     // enable all channels
-    reg_write(reg::chan_disable, 0x00);
+    reg_write(reg::chan_disable, 0xFF);
     // mask all interrupts
     reg_write(reg::int_mask, 0xFF);
     // startup
