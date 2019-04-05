@@ -32,6 +32,7 @@ public:
     int disableContiniousConversion();
 
     int oneshot();
+    int setMode1(bool immediate = true);
 
     int enableExternalVref(bool immediate = true);
     int disableExternalVref(bool immediate = true);

@@ -83,6 +83,7 @@ namespace adv_config {
     const uint8_t external_vref = 1 << 0;
     const uint8_t mode_bit0     = 1 << 1;
     const uint8_t mode_bit1     = 1 << 2;
+    const uint8_t mode1 = adv_config::mode_bit0;
 } // end namespace adv_config
 
 

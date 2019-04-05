@@ -18,12 +18,13 @@ void ADC128::begin() {
     // conversion rate -> continious
     enableContiniousConversion();
 
-    reg_write(reg::config, 0b00000001);
+    // reg_write(reg::config, 0b00000001);
 
     // external vref
     enableExternalVref();
 
     // mode 1
+    setMode1();
 
     // startup
     enableStart(true);
@@ -87,6 +88,14 @@ int ADC128::disableContiniousConversion() {
 
 int ADC128::oneshot() {
     return reg_write(reg::oneshot, oneshot::enable);
+}
+
+int ADC128::setMode1(bool immediate) {
+    adv_config_data |= adv_config::mode1;
+    if (immediate)
+        return writeAdvConfig();
+    else
+        return 0;
 }
 
 int ADC128::enableExternalVref(bool immediate) {
