@@ -13,7 +13,6 @@ int main(int argc, char *argv[]) {
     adc.begin();
 
     while (true) {
-        adc.oneshot(); // TODO: should be able to use contionous but it's not
         for (uint8_t chan = 0; chan < 8; chan++) {
             uint16_t val = adc.analogRead(chan);
             printf("%6x ", val);
