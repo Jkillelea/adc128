@@ -9,11 +9,11 @@ void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
 
-#ifdef __linux__
-    while(is_busy()) {
-       usleep(100000); 
-    }
-#endif // __linux__
+// #ifdef __linux__
+//     while(is_busy()) {
+//        usleep(100000); 
+//     }
+// #endif // __linux__
 
     // external vref
     enableExternalVref();
