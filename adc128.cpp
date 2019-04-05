@@ -22,6 +22,9 @@ void ADC128::begin() {
     enableContiniousConversion();
     // startup
     enableStart(true);
+    // turn off all interrupts
+    disableInterrupt();
+    clearInterrupts();
 
 #ifdef __linux__
     while(is_busy()) {
