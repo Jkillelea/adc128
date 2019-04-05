@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
     adc.begin();
 
     while (true) {
+        adc.oneshot();
         for (uint8_t chan = 0; chan < 8; chan++) {
             uint16_t val = adc.analogRead(chan);
             printf("%6x ", val);
