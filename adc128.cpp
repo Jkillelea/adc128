@@ -8,26 +8,19 @@ ADC128::ADC128(uint8_t address) {
 void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
-
     // reset defaults
     reset();
-
     // shutdown
     disableStart(true);
-
     // mode 1
     setMode1();
-
     // conversion rate -> continious
     enableContiniousConversion();
-
     // startup
     enableStart(true);
-
     // external vref
-    enableExternalVref();
-
-
+    // enableExternalVref();
+    disableExternalVref();
 }
 
 
@@ -131,10 +124,8 @@ uint16_t ADC128::analogRead(uint8_t chan) {
     return (highbyte << 4) | (lowbyte >> 4);
 #else // Raspberry Pi
     uint8_t buf[2] = {0};
-
     i2c->write(&channel_reg, 1);
-    if(i2c->read(buf, 2) < 2)
-        perror("read");
+    i2c->read(buf, 2);
     return (buf[0] << 4) | (buf[1] >> 4);
 }
 #endif
