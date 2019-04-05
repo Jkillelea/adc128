@@ -147,8 +147,8 @@ uint16_t ADC128::analogRead(uint8_t chan) {
     uint8_t buf[2] = {channel_reg, 0};
     i2c->write(buf, 1);
     i2c->read(buf, 2);
-    // return (buf[0] << 4) | (buf[1] >> 4); // TODO
-    return (buf[0] << 8) | (buf[1]);
+    return (buf[0] << 4) | (buf[1] >> 4); // TODO
+    // return (buf[0] << 8) | (buf[1]);
 }
 #endif
 
