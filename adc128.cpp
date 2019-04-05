@@ -10,8 +10,9 @@ void ADC128::begin() {
     i2c_bus_init();
 
     // shutdown
-    disableStart(true);
-    reg_write(reg::deep_shutdown, 0);
+    // disableStart(true);
+    // reg_write(reg::deep_shutdown, 0);
+
     // reset defaults
     reset(true);
     // external vref
