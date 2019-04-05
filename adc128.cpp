@@ -12,8 +12,8 @@ void ADC128::begin() {
     // reset defaults
     reset();
 
-    // // shutdown
-    // disableStart();
+    // shutdown
+    disableStart(true);
 
     // conversion rate -> continious
     enableContiniousConversion();
@@ -24,13 +24,9 @@ void ADC128::begin() {
     enableExternalVref();
 
     // mode 1
-    // reg_write(reg::adv_config, adv_config::mode_bit0);
 
     // startup
-    enableStart();
-
-    writeConfig();
-    writeAdvConfig();
+    enableStart(true);
 }
 
 
