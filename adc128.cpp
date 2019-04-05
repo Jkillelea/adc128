@@ -9,9 +9,9 @@ void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
     // reset defaults
-    reset();
+    // reset();
     // shutdown
-    disableStart(true);
+    // disableStart(true);
     // mode 1
     setMode1();
     // conversion rate -> continious
@@ -19,8 +19,7 @@ void ADC128::begin() {
     // startup
     enableStart(true);
     // external vref
-    // enableExternalVref();
-    disableExternalVref();
+    enableExternalVref();
 }
 
 
@@ -31,7 +30,6 @@ int ADC128::enableStart(bool immediate) {
     else
         return 0;
 }
-
 
 int ADC128::disableStart(bool immediate) {
     config_data &= ~config::start;
