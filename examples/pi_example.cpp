@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <uinstd.h>
 #include <wiringPi.h>
 #include "adc128.h"
 
 int main(int argc, char *argv[]) {
+    usleep(100000); // wait more than 33ms on poweron
     ADC128 adc(0x1D);
     adc.begin();
 
