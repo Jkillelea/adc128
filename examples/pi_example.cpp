@@ -6,6 +6,10 @@
 int main(int argc, char *argv[]) {
     usleep(100000); // wait more than 33ms on poweron
     ADC128 adc(0x1D);
+
+    while(adc.is_busy())
+        usleep(100000);
+
     adc.begin();
 
     while (true) {

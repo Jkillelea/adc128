@@ -11,17 +11,19 @@ void ADC128::begin() {
 
     // reset defaults
     reset(true);
-    // conversion rate -> continious
-    enableContiniousConversion();
-    // startup
-    enableStart(true);
     // external vref
     enableExternalVref();
-    // turn off all interrupts
-    disableInterrupts();
-    clearInterruptPin();
     // mode 1
     setMode1();
+    // conversion rate -> continious
+    enableContiniousConversion();
+    // mask all interrupts
+    reg_write(reg::int_mask, 0xFF);
+    // startup
+    enableStart(true);
+    // turn off all interrupts
+    disableInterrupts();
+    enableInterruptPin();
 
     while(is_busy()) {
 #ifdef ARDUINO
