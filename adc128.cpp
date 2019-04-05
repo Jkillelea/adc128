@@ -9,6 +9,8 @@ void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
 
+    // shutdown
+    disableStart(true);
     // reset defaults
     reset(true);
     // external vref
