@@ -9,26 +9,36 @@ void ADC128::begin() {
     // I2C Setup
     i2c_bus_init();
 
-    // reset defaults
-    enableStart(true);
-    reset(true);
+#ifdef __linux__
+    while(is_busy()) {
+       usleep(100000); 
+    }
+#endif // __linux__
 
-// #ifdef __linux__
-//     while(is_busy()) {
-//        usleep(100000); 
-//     }
-// #endif // __linux__
-
-    // shutdown
-    disableStart(true);
+    // external vref
+    enableExternalVref();
     // mode 1
     setMode1();
     // conversion rate -> continious
     enableContiniousConversion();
     // startup
     enableStart(true);
+
+    // reset defaults
+    // reset(true);
+
+
+    // shutdown
+    // disableStart(true);
+    // mode 1
+    // setMode1();
+    // conversion rate -> continious
+    // enableContiniousConversion();
+    // startup
+    // enableStart(true);
+
     // external vref
-    enableExternalVref();
+    // enableExternalVref();
 
 }
 
