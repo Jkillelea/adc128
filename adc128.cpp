@@ -12,14 +12,11 @@ void ADC128::begin() {
     // reset defaults
     reset();
 
-    // shutdown
-    disableStart();
+    // // shutdown
+    // disableStart();
 
     // conversion rate -> continious
     enableContiniousConversion();
-
-    // startup
-    enableStart();
 
     reg_write(reg::config, 0b00000001);
 
@@ -27,6 +24,13 @@ void ADC128::begin() {
     enableExternalVref();
 
     // mode 1
+    // reg_write(reg::adv_config, adv_config::mode_bit0);
+
+    // startup
+    enableStart();
+
+    writeConfig();
+    writeAdvConfig();
 }
 
 
@@ -106,9 +110,9 @@ int ADC128::disableExternalVref(bool immediate) {
 }
 
 uint16_t ADC128::analogRead(uint8_t chan) {
-#ifdef ARDUINO
     uint8_t channel_reg = reg::chan0 + chan;
 
+#ifdef ARDUINO
     Wire.beginTransmission(addr);
     Wire.write(channel_reg);
     Wire.endTransmission();
@@ -122,7 +126,6 @@ uint16_t ADC128::analogRead(uint8_t chan) {
     return (highbyte << 4) | (lowbyte >> 4);
 #else // Raspberry Pi
     uint8_t buf[2] = {0};
-    uint8_t channel_reg = reg::chan0 + chan;
 
     i2c->write(&channel_reg, 1);
     i2c->read(buf, 2);
