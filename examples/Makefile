@@ -8,7 +8,10 @@ TARGETS = pi_example thermistor_temperature
 .PHONY: all
 all: $(TARGETS)
 
-%: %.o $(LIB_OBJS)
+pi_example: pi_example.o $(LIB_OBJS)
+	$(CXX) -o $@ $^ $(LFLAGS)
+
+thermistor_temperature: thermistor_temperature.o $(LIB_OBJS)
 	$(CXX) -o $@ $^ $(LFLAGS)
 
 %.o: %.cpp
